@@ -18,6 +18,7 @@ from Crypto.Hash import SHA
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
+transactions = []
 
 class Client:
     def __init__(self):
@@ -56,11 +57,26 @@ class Transaction:
         h = SHA.new(str(self.to_dict()).encode('utf8'))
         return binascii.hexlify(signer.sign(h)).decode('ascii')
 
+    def display_transaction(transaction):
+        # for transaction in transactions:
+        dict = transaction.to_dict()
+        print ("sender: " + dict['sender'])
+        print ('-----')
+        print ("recipient: " + dict['recipient'])
+        print ('-----')
+        print ("value: " + str(dict['value']))
+        print ('-----')
+        print ("time: " + str(dict['time']))
+        print ('-----')
+
 
 Dinesh = Client()
 Ramesh = Client()
+Seema = Client()
+Vijay = Client()
 
-t = Transaction(Dinesh, Ramesh.identity,5.0)
-signature = t.sign_transaction()
-print ("sig: ", signature)
+t1 = Transaction(Dinesh, Ramesh.identity, 15.0)
 
+t1.sign_transaction()
+transactions.append(t1)
+print (signature)
